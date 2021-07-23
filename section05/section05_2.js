@@ -4,8 +4,8 @@ function solution(arr1, arr2) {
   let n = arr1.length;
   let m = arr2.length;
 
-  arr1.sort();
-  arr2.sort();
+  arr1.sort((a, b) => a - b);
+  arr2.sort((a, b) => a - b);
 
   while (p1 < n && p2 < m) {
     if (arr1[p1] === arr2[p2]) {
