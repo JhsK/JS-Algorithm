@@ -1,18 +1,18 @@
 function solution(m, arr) {
   let answer = 0;
   let n = arr.length;
+  let py = 0;
+  let sum = 0;
 
-  for (let i = 0; i < n; i++) {
-    let sum = 0;
-    for (let j = i; j < n; j++) {
-      sum += arr[j];
-      if (sum === m) {
-        answer++;
-        break;
-      }
-      if (sum > m) break;
+  for (let px = 0; px < n; px++) {
+    sum += arr[px];
+    if (sum === 6) answer++;
+    while (sum >= 6) {
+      sum -= arr[py++];
+      if (sum === 6) answer++;
     }
   }
+
   return answer;
 }
 
