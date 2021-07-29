@@ -3,6 +3,14 @@ function solution(m, arr) {
   let sum = 0;
   let lt = 0;
 
+  for (let rt = 0; rt < arr.length; rt++) {
+    sum += arr[rt];
+    while (sum > 5) {
+      sum -= arr[lt++];
+    }
+    answer += rt - lt + 1;
+  }
+
   return answer;
 }
 
