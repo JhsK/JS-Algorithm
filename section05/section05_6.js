@@ -1,11 +1,21 @@
 function solution(s) {
   let answer;
-  let sH = new Map();
-  sH.set("A", 0);
+  let map = new Map();
+  let max = Number.MIN_SAFE_INTEGER;
 
-  sH.set("A", sH.get("A") + 1);
+  for (let x of s) {
+    if (map.has(x)) map.set(x, map.get(x) + 1);
+    else map.set(x, 1);
+  }
 
-  console.log(sH);
+  for (let [key, val] of map) {
+    if (val > max) {
+      max = val;
+      answer = key;
+    }
+  }
+
+  return answer;
 }
 
 let str = "BACBACCACCBDEDE";
