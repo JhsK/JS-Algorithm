@@ -1,15 +1,9 @@
 function solution(arr){
     let answer=[];
+    let tmp = [...arr].sort((a, b) => a - b);
     
     for (let i = 0; i < arr.length; i++) {
-        if (answer.length > 0) {
-            if (arr[i-1] > arr[i]) answer.push(i+1);
-        } else {
-            if (arr[i] > arr[i+1]) {
-                answer.push(i+1);
-                i++;
-            }
-        }
+        if (tmp[i] !== arr[i]) answer.push(i+1);
     }
     return answer;
 }
