@@ -1,17 +1,20 @@
 function solution(target, arr){
-    let answer;
-    arr.sort((a, b)=>a-b);
-    let lt=0, rt=arr.length-1;
-    while(lt<=rt){
-        let mid=parseInt((lt+rt)/2);
-        if(arr[mid]===target){
-            answer=mid+1;
+    let answer = 0;
+    let tmp = arr.sort((a, b) => a - b);
+    let lt = 0;
+    let rt = tmp.length - 1;
+
+    while (lt <= rt) {
+        let mid = parseInt(rt / 2);
+
+        if (target === tmp[mid]) {
+            answer = mid + 1;
             break;
         }
-        else if(arr[mid]>target) rt=mid-1;
-        else lt=mid+1;
+        else if (tmp[mid] > target) rt = mid - 1;
+        else lt = mid + 1;
     }
-   
+    
     return answer;
 }
 
