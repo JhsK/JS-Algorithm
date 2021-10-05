@@ -5,7 +5,7 @@ function solution(n, m){
     function DFS(L) {
         if (L === m) {
             console.log(tmp);
-            answer.push(tmp);
+            answer.push(tmp.slice());
         } else {
             for (let i = 1; i <= n; i++) {
                 tmp[L] = i;
