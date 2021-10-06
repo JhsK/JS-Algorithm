@@ -1,23 +1,23 @@
 function solution(m, arr){         
     let answer=[];
-    let ch = Array.from({length: arr.length}, () => 0);
-    let tmp = [];
+    let tmp = Array.from({length: m}, () => 0);
+    let check = Array.from({length: arr.length}, () => 0);
 
-    function DFS(L) {
-        if (L === m) {
+    function DFS(v) {
+        if (v === m) {
             answer.push(tmp.slice());
         } else {
             for (let i = 0; i < arr.length; i++) {
-                if (ch[i] === 0) {
-                    ch[i] = 1;
-                    tmp[L] = arr[i];
-                    DFS(L+1);
-                    ch[i] = 0;
+                if (check[i] === 0) {
+                    check[i] = 1;
+                    tmp[v] = arr[i];
+                    DFS(v+1);
+                    check[i] = 0;
                 }
+                
             }
         }
     }
-   
     DFS(0);
     return answer;
 }
