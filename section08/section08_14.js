@@ -1,6 +1,6 @@
 function solution(n, m){         
     let answer=[];
-    let tmp = Array.from({length:m}, () => 0);
+    let tmp = Array.from({length: m}, () => 0);
 
     function DFS(v, s) {
         if (v === m) {
@@ -12,9 +12,8 @@ function solution(n, m){
             }
         }
     }
-
-    DFS(0, 1);
     
+    DFS(0, 1);
     return answer;
 }
 
