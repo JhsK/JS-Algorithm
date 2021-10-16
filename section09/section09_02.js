@@ -1,26 +1,25 @@
 function solution(n, arr){  
     let answer=0;
-    let graph = Array.from({length: n+1}, () => Array());
+    let graph = Array.from({length: n+1}, () => Array(n+1).fill());
     let ch = Array.from({length: n+1}, () => 0);
-    
+
     for (let [a, b] of arr) {
-        graph[a].push(b);
+        graph[a][b] = 1;
     }
 
     function DFS(v) {
         if (v === n) {
             answer++;
         } else {
-            for (let i = 0; i < graph[v].length; i++) {
-                if (ch[graph[v][i]] === 0) {
-                    ch[graph[v][i]] = 1;
-                    DFS(graph[v][i])
-                    ch[graph[v][i]] = 0;
+            for (let i = 1; i <= n; i++) {
+                if (graph[v][i] === 1 && ch[i] === 0) {
+                    ch[i] = 1;
+                    DFS(i);
+                    ch[i] = 0;
                 }
             }
         }
     }
-
     ch[1] = 1;
     DFS(1);
     return answer;
