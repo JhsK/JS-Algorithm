@@ -2,10 +2,11 @@ function solution(board){
     let answer=0;
     let dx = [0, 1, 0, -1];
     let dy = [-1, 0, 1, 0];
-
+    
     function DFS(x, y) {
-        if (x === 6 && y === 6) answer++;
-        else {
+        if (x === 6 && y === 6) {
+            answer++;
+        } else {
             for (let i = 0; i < dx.length; i++) {
                 let nx = x + dx[i];
                 let ny = y + dy[i];
@@ -20,7 +21,7 @@ function solution(board){
 
     board[0][0] = 1;
     DFS(0, 0);
-
+    
     return answer;
 }
 
