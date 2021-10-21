@@ -4,7 +4,7 @@ function solution(n){
     tmp[1] = 1;
     tmp[2] = 2;
 
-    for (let i = 3; i <= n+1; n++) {
+    for (let i = 3; i <= n+1; i++) {
         tmp[i] = tmp[i-2] + tmp[i-1];
     }
     answer = tmp[n+1];
