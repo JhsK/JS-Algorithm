@@ -1,11 +1,11 @@
-function main() {
-    var S = readLine();
-    var n = 0;
-    for(var i = 0; i < S.length ; i += 3){
-        if(S[i] != "S") n++;
-        if(S[i + 1] != "O") n++;
-        if( S[i + 2] != "S") n++;
-        
+function marsExploration(s) {
+    let j = 0;
+    let answer = 0;
+    let tmp = ["S", "O", "S"];
+    for (let i = 0; i < s.length; i++) {
+        if (j > 2) j = 0;
+        if (s[i] != tmp[j]) answer++
+        j++;
     }
-   console.log(n);
+    return answer;
 }
