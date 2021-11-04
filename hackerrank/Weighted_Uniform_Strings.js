@@ -1,24 +1,23 @@
 function weightedUniformStrings(s, queries) {
-    let code;
-    let prevChar;
-    let prevCharCount;
-    let dic = Object.create(null);
+    let tmpArray = [];
+    let tmp = 1;
+    let answer = [];
+    
     for (let i = 0; i < s.length; i++) {
-        code = s.charCodeAt(i) - 96;
-        if (prevChar === code) {
-            prevCharCount++;
+        let cal = s[i].charCodeAt() - 96;
+        if (i > 0 && s[i] === s[i-1]) {
+            tmp++;
+            tmpArray.push(cal * tmp);
         } else {
-            prevCharCount = 1;
-            prevChar = code;
+            tmp = 1;
+            tmpArray.push(cal);
         }
-        
-        dic[code * prevCharCount] = true;
     }
     
-    var result = [];
-    for (let i = 0; i < queries.length; i++) {
-        result.push(dic[queries[i]] ? "Yes" : "No");
+    for (let x of queries) {
+        if (tmpArray.indexOf(x) > -1) answer.push('Yes');
+        else answer.push('No');
     }
     
-    return result;
+    return answer;
 }
