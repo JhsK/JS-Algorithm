@@ -1,7 +1,7 @@
 function gemstones(arr) {
-  let combined = arr.join("");
-  let unique = [...new Set(combined)];
-  let result = unique.filter((ch) => arr.every((str) => str.includes(ch)));
+  let allParam = arr.join("");
+  let overlap = [...new Set(allParam)];
+  let result = overlap.filter((ch) => arr.every((str) => str.includes(ch)));
   return result.length;
 }
 
