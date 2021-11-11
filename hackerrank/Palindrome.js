@@ -1,12 +1,13 @@
-function palindromeIndex(s) {
-  function isPalindrome(s) {
-    for (let i = 0; i < Math.floor(s.length / 2); i++) {
-      if (s[i] !== s[s.length - 1 - i]) {
-        return false;
-      }
+function isPalindrome(s) {
+  for (let i = 0; i < Math.floor(s.length / 2); i++) {
+    if (s[i] !== s[s.length - 1 - i]) {
+      return false;
     }
-    return true;
   }
+  return true;
+}
+
+function palindromeIndex(s) {
   for (let i = 0; i < Math.floor(s.length / 2); i++) {
     if (s[i] !== s[s.length - 1 - i]) {
       if (isPalindrome(s.slice(i, s.length - i - 1))) {
