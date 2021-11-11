@@ -1,8 +1,10 @@
 function calChar(front, back) {
   let cnt = 0;
   for (let i = 0; i < front.length; i++) {
-    if (front[i] !== back[i]) {
-      cnt += Math.abs(front[i].charCodeAt() - back[i].charCodeAt());
+    if (front[i] !== back[front.length - 1 - i]) {
+      cnt += Math.abs(
+        front[i].charCodeAt() - back[front.length - 1 - i].charCodeAt()
+      );
     }
   }
 
