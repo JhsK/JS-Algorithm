@@ -1,14 +1,16 @@
 function stringConstruction(s) {
-  const slen = s ? s.length : 0;
-  if (slen < 1 || slen > 100000) {
-    return 0;
+  let count = 0;
+  let map = new Map();
+  const paramString = s.split("");
+  
+  for (let x of paramString) {
+      if (!map.has(x)) {
+          map.set(x, 1);
+          count++;
+      }
   }
-
-  let p = [];
-  return s.split("").filter((el, i) => {
-    if (p.indexOf(el) < 0) {
-      p.push(el);
-      return el;
-    }
-  }).length;
+  
+  return count;
 }
+
+console.log(stringConstruction("aabb"));
