@@ -1,22 +1,14 @@
 function gradingStudents(grades) {
-  let roundedGrades = [];
+  let answer = [];
   for (let i = 0; i < grades.length; i++) {
-    let difference = multipleOfFive(grades[i]);
-    let finalGrade = difference + grades[i];
-
-    if (difference < 3 && finalGrade >= 40) {
-      roundedGrades.push(finalGrade);
-    } else {
-      roundedGrades.push(grades[i]);
+    let lineNum = Math.floor(grades[i] / 5) * 5 + 5;
+    if (grades[i] < 38) answer.push(grades[i]);
+    else {
+      if (lineNum - grades[i] < 3) answer.push(lineNum);
+      else answer.push(grades[i]);
     }
   }
-  return roundedGrades;
+  return answer;
 }
-function multipleOfFive(x) {
-  let counter = 0;
-  while (x % 5 != 0) {
-    x++;
-    counter++;
-  }
-  return counter;
-}
+
+console.log(gradingStudents([75, 67, 38, 33]));
