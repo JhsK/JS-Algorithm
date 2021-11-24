@@ -1,18 +1,17 @@
-function main() {
-  var x1_temp = readLine().split(" ");
-  var x1 = parseInt(x1_temp[0]);
-  var v1 = parseInt(x1_temp[1]);
-  var x2 = parseInt(x1_temp[2]);
-  var v2 = parseInt(x1_temp[3]);
+function kangaroo(x1, v1, x2, v2) {
+  if (!(x2 > x1 && v1 > v2)) return "NO";
+  if ((x2 - x1) % (v1 - v2) !== 0) return "NO";
 
-  if (x1 > x2) {
-    if (v1 >= v2) return console.log("NO");
-  }
-
-  if (x2 > x1) {
-    if (v2 >= v1) return console.log("NO");
-  }
-
-  var jump = (x2 - x1) / (v2 - v1);
-  console.log(jump % 1 === 0 ? "YES" : "NO");
+  return "YES";
 }
+
+// 증명
+
+// x1 + v1*t = x2 + v2*t
+
+// t에 대한 해결: -> 즉 횟수
+
+// t = (x2-x1)/(v1-v2)
+
+// t가 양의 정수가 되려면 :
+// x2 > x1 and v1 > v2 and (x2-x1)%(v1-v2) == 0
