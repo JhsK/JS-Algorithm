@@ -1,46 +1,48 @@
-function bonusNum(char) {
-  let tmp = 0;
-  switch (char) {
-    case "S":
-      tmp = 1;
-      break;
-    case "D":
-      tmp = 2;
-      break;
-    case "T":
-      tmp = 3;
-      break;
-  }
-  return tmp;
-}
-
 function solution(dartResult) {
-  let result = [];
+  let point = [];
 
-  for (let x of dartResult) {
-    if (!isNaN(x)) {
-      if (x === "0" && result[result.length - 1] === 1) continue;
-      if (x === "1") {
-        if (dartResult[dartResult.lastIndexOf(x) + 1] === "0") {
-          console.log("asf", dartResult, dartResult.lastIndexOf(x));
-          result.push(10);
-        } else result.push(Number(x));
-      } else result.push(Number(x));
-    } else if (x === "S" || x === "D" || x === "T") {
-      let tmp = bonusNum(x);
-      result[result.length - 1] = result[result.length - 1] ** tmp;
-    } else if (x === "*" || x === "#") {
-      if (x === "*") {
-        result[result.length - 1] = result[result.length - 1] * 2;
-        if (result.length - 2 >= 0) {
-          result[result.length - 2] = result[result.length - 2] * 2;
-        }
+  for (let i = 0; i < dartResult.length; i++) {
+    if (Number.isInteger(Number(dartResult[i]))) {
+      if (dartResult[i] === "1" && dartResult[i + 1] === "0") {
+        point.push(10);
+        i++;
+        continue;
+      }
+      point.push(Number(dartResult[i]));
+    } else if (
+      dartResult[i] === "S" ||
+      dartResult[i] === "D" ||
+      dartResult[i] === "T"
+    ) {
+      let tmp = dartResult[i] === "S" ? 1 : dartResult[i] === "D" ? 2 : 3;
+      point[point.length - 1] = Math.pow(point[point.length - 1], tmp);
+    } else if (dartResult[i] === "#" || dartResult[i] === "*") {
+      if (dartResult[i] === "*") {
+        point[point.length - 1] = point[point.length - 1] * 2;
+        point[point.length - 2] = point[point.length - 2] * 2;
       } else {
-        result[result.length - 1] = -result[result.length - 1];
+        point[point.length - 1] = -point[point.length - 1];
       }
     }
   }
-  // return result.reduce((a, b) => a + b);
+
+  return point.reduce((a, b) => a + b, 0);
 }
 
-console.log(solution("1D2S#10S"));
+function solution(dartResult) {
+  const bonus = { S: 1, D: 2, T: 3 },
+    options = { "*": 2, "#": -1, undefined: 1 };
+
+  let darts = dartResult.match(/\d.?\D/g);
+
+  for (let i = 0; i < darts.length; i++) {
+    let split = darts[i].match(/(^\d{1,})(S|D|T)(\*|#)?/),
+      score = Math.pow(split[1], bonus[split[2]]) * options[split[3]];
+
+    if (split[3] === "*" && darts[i - 1]) darts[i - 1] *= options["*"];
+
+    darts[i] = score;
+  }
+
+  return darts.reduce((a, b) => a + b);
+}
