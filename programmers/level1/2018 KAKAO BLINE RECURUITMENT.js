@@ -1,32 +1,32 @@
 function solution(n, arr1, arr2) {
   let result = [];
 
-  arr1 = arr1.map((a) => {
-    let tmp = a.toString(2);
+  for (let i = 0; i < n; i++) {
+    let tmp = arr1[i] | arr2[i];
 
-    if (tmp.length < n) {
-      tmp = "0".repeat(n - tmp.length) + tmp;
+    if (tmp.toString(2).length < n) {
+      result.push("0".repeat(n - tmp.toString(2).length) + tmp.toString(2));
+    } else {
+      result.push(tmp.toString(2));
     }
-    return tmp;
-  });
-
-  arr2 = arr2.map((b) => {
-    let tmp = b.toString(2);
-
-    if (tmp.length < n) {
-      tmp = "0".repeat(n - tmp.length) + tmp;
-    }
-    return tmp;
-  });
-
-  for (let x in arr1) {
-    result.push(arr1[x].concat(arr2[x]));
   }
 
-  for (let j of result) {
-    j = j.replaceAll("");
-  }
-
-  console.log(result);
-  // console.log(arr1, arr2);
+  return result.map((x) => x.replace(/0/g, " ").replace(/1/g, "#"));
 }
+
+function solution(n, arr1, arr2) {
+  return arr1.map((v, i) =>
+    addZero(n, (v | arr2[i]).toString(2)).replace(/1|0/g, (a) =>
+      +a ? "#" : " "
+    )
+  );
+}
+
+const addZero = (n, s) => {
+  return "0".repeat(n - s.length) + s;
+};
+
+var solution = (n, a, b) =>
+  a.map((a, i) =>
+    (a | b[i]).toString(2).padStart(n, 0).replace(/0/g, " ").replace(/1/g, "#")
+  );
