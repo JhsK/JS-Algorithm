@@ -10,7 +10,6 @@ function solution(n, k) {
   let result = 0;
   let transferNum = n.toString(k);
   let primeArr = transferNum.split("0").filter((v) => isPrime(v));
-  console.log(primeArr);
   return primeArr.length;
 }
 
