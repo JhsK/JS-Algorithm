@@ -18,7 +18,6 @@ const rl = readline.createInterface({
 let input;
 rl.on("line", function (line) {
   input = line;
-  // input = parseInt(line); // 입력 값이 정수라면 parseInt로 형변환
   rl.close();
 }).on("close", function () {
   solution(input);
