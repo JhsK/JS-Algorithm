@@ -1,25 +1,25 @@
-let fs = require("fs");
-const number = Number(fs.readFileSync("예제.txt").toString());
+//한 개의 입력(띄어쓰기x)
+function solution(input) {
+  const num = Number(input);
+  const dp = [...Array(num + 1)].map((v) => []);
+  let result = 0;
+  dp[1] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+  dp[2] = [1, 1, 2, 2, 2, 2, 2, 2, 2, 1];
 
-const dp = Array.from(new Array(number + 1), () => new Array(10));
-
-dp[1] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-dp[2] = [1, 1, 2, 2, 2, 2, 2, 2, 2, 1];
-
-for (let n = 3; n <= number; n++) {
-  for (let i = 0; i < 10; i++) {
-    if (i === 0) {
-      dp[n][i] = dp[n - 1][i + 1] % 1000000000;
-    } else if (i >= 1 && i <= 8) {
-      dp[n][i] = (dp[n - 1][i - 1] + dp[n - 1][i + 1]) % 1000000000;
-    } else {
-      dp[n][i] = dp[n - 1][i - 1] % 1000000000;
+  for (let i = 3; i <= num; i++) {
+    for (let j = 0; j < 10; j++) {
+      if (j === 0) {
+        dp[i][j] = dp[i - 1][j + 1] % 1000000000;
+      } else if (j >= 1 && j <= 8) {
+        dp[i][j] = (dp[i - 1][j - 1] + dp[i - 1][j + 1]) % 1000000000;
+      } else {
+        dp[i][j] = dp[i - 1][j - 1];
+      }
     }
   }
-}
-let sum = 0;
-for (let j = 0; j < 10; j++) {
-  sum += dp[number][j];
+  console.log(dp[num]);
+  result = dp[num].reduce((a, b) => a + b);
+  console.log(result);
 }
 
-console.log(sum % 1000000000);
+console.log(solution(5));
