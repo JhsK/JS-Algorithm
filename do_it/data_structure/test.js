@@ -1,11 +1,25 @@
-function test(arr, i, j) {
-    let s = []; // 합 배열
-    s[0] = arr[0];
+function test(arr) {
+  let tmp = 0;
+  let stack = [];
 
-    for (let x = 1; x < arr.length; x++) {
-        s[x] = s[x-1] + arr[x];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] >= tmp) {
+      while (arr[i] >= tmp) {
+        stack.push(tmp);
+        tmp++;
+        console.log("+");
+      }
+      stack.pop();
+      console.log("-");
+    } else {
+      let popValue = stack.pop();
+      if (popValue > arr[i]) {
+        console.log("NO");
+        return "NO";
+      }
+      console.log("-");
     }
-    return s[j] + s[i-1];
+  }
 }
 
-console.log(test([5,4,3,2,1], 1, 3));
+console.log(test([1,2,5,3,4]));
