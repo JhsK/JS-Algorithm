@@ -1,25 +1,11 @@
 function test(arr) {
-  let tmp = 0;
-  let stack = [];
+  const sortArr = [...arr].sort((a, b) => a - b);
+  const calIndex = [];
 
   for (let i = 0; i < arr.length; i++) {
-    if (arr[i] >= tmp) {
-      while (arr[i] >= tmp) {
-        stack.push(tmp);
-        tmp++;
-        console.log("+");
-      }
-      stack.pop();
-      console.log("-");
-    } else {
-      let popValue = stack.pop();
-      if (popValue > arr[i]) {
-        console.log("NO");
-        return "NO";
-      }
-      console.log("-");
-    }
+    calIndex.push(arr.indexOf(sortArr[i]) - i);
   }
+  return Math.max(...calIndex) + 1;
 }
 
-console.log(test([1,2,5,3,4]));
+console.log(test([10, 1, 5, 2, 3]));
