@@ -1,11 +1,26 @@
-function test(arr) {
-  const sortArr = [...arr].sort((a, b) => a - b);
-  const calIndex = [];
+let bingo = 0;
 
-  for (let i = 0; i < arr.length; i++) {
-    calIndex.push(arr.indexOf(sortArr[i]) - i);
+const merge = (left, right) => {
+  const result = [];
+  while (left.length && right.length) {
+    if (left[0] <= right[0]) {
+      bingo++;
+    }
+    result.push(left[0] <= right[0] ? left.shift() : right.shift());
   }
-  return Math.max(...calIndex) + 1;
+  return [...result, ...left, ...right];
+};
+
+function test(arr) {
+  if (arr.length < 2) return arr;
+
+  let mid = Math.floor(arr.length / 2);
+  let left = arr.slice(0, mid);
+  let right = arr.slice(mid);
+
+  return merge(test(left), test(right));
+
 }
 
-console.log(test([10, 1, 5, 2, 3]));
+console.log(test([3, 2, 8, 1, 7, 4, 5, 6]));
+console.log(bingo);
