@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="canvas_container"></div>
+      <div class="text">
+        <p class="quoteText">
+          “ Never memorize something that you can look up.”<br /><span
+            style="font-style: italic; font-size: 1.4rem; color: #ed760d"
+            >#Stack Overflow</span
+          >
+        </p>
+      </div>
+      <p class="clickInfo">click anywhere to start journey</p>
+
+      <img
+        id="first"
+        src="https://i.imgur.com/hDB2Egy.jpg"
+        style="display: none"
+      />
+    </div>
+
+    <script
+      async
+      src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"
+    ></script>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@<version>/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@<version>/examples/jsm/"
+        }
+      }
+    </script>
+    <script src="./script.js"></script>
+  </body>
+</html>
