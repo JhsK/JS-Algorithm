@@ -31,12 +31,17 @@ class Queue {
 class Queue {
   constructor() {
     this._arr = [];
+    this.first = 0;
   }
   enqueue(item) {
     this._arr.push(item);
   }
   dequeue() {
-    return this._arr.shift();
+    if (this.first === 0) return this._arr.shift();
+    return this._arr[this.first++];
+  }
+  getLength() {
+    return this._arr.length - this.first;
   }
 }
 
