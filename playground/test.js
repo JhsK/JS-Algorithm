@@ -1,36 +1,41 @@
-let k = 2;
-let arr = "< >";
-let visited = new Array(10).fill(false);
-let result = [];
-let current = "";
-let first = "";
+let fs = require("fs");
+let input = "2 162";
 
-function dfs(depth) {
-  if (depth === k + 1) {
-    let check = true;
-    for (let i = 0; i < k; i++) {
-      if (arr[i] === "<") {
-        if (result[i] > result[i + 1]) check = false;
-      } else if (arr[i] === ">") {
-        if (reuslt[i] < result[i + 1]) check = false;
-      }
-    }
-    if (check) {
-      current = "";
-      for (let x of result) current += x + "";
-      if (first === "") first = current;
-    }
-    return;
+class Queue {
+  constructor() {
+    this._arr = [];
+    this.first = 0;
   }
-  for (let i = 0; i < 10; i++) {
-    if (visited[i]) continue;
-    visited[i] = true;
-    result.push(i);
-    dfs(depth + 1);
-    visited[i] = false;
-    result.pop();
+  enqueue(item) {
+    this._arr.push(item);
+  }
+  dequeue() {
+    if (this.first === 0) return this._arr.shift();
+    return this._arr[this.first++];
+  }
+  getLength() {
+    return this._arr.length - this.first;
   }
 }
 
-dfs(0);
-console.log(current + "\n" + first);
+let max = 1e9;
+let found = false;
+let [n, m] = input[0].split(" ").map(Number);
+const queue = new Queue();
+queue.enqueue([1, n]); // depth, num
+
+while (queue.getLength() !== 0) {
+  let [count, cur] = queue.dequeue();
+  if (cur === n) {
+    console.log(count);
+    found = true;
+    break;
+  }
+  for (let x of [cur * 2, Number(cur + "1")]) {
+    if (x <= max) {
+      queue.enqueue([count + 1, x]);
+    } else break;
+  }
+}
+
+if (!found) console.log(-1);
