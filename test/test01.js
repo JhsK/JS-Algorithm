@@ -1,19 +1,43 @@
-function solution(N, K) {
-  let result = String(N)
-    .split("")
-    .map((num) => Number(num));
-  let plus = K;
+class Queue {
+  items = [];
+  front = 0;
+  rear = 0;
 
-  if (plus === 0 || N === 999) return result.join("");
-  for (let i = 0; i < result.length; i++) {
-    result[i] += plus;
-    let tmp = result[i] - 9;
-    if (tmp > 0) {
-      result[i] -= tmp;
-      plus = tmp;
-    } else break;
+  push(item) {
+    this.items.push(item);
+    this.rear++;
   }
-  return result.join("");
+
+  pop() {
+    return this.items[this.front++];
+  }
+
+  isEmpty() {
+    return this.front === this.rear;
+  }
+
+  size() {
+    return this.rear - this.front;
+  }
 }
 
-console.log(solution(999, 10));
+function solution(N, K) {
+  const queue = new Queue();
+
+  for (let i = 1; i <= N; i++) {
+    queue.push(i);
+  }
+
+  while (queue.size() > 1) {
+    for (let i = 1; i <= K - 1; i++) {
+      let tmp = queue.pop();
+      queue.push(tmp);
+    }
+
+    queue.pop();
+  }
+
+  return queue.pop();
+}
+
+console.log(solution(5, 2));
