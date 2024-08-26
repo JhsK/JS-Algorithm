@@ -1,43 +1,31 @@
-class Queue {
-  items = [];
-  front = 0;
-  rear = 0;
-
-  push(item) {
-    this.items.push(item);
-    this.rear++;
-  }
-
-  pop() {
-    return this.items[this.front++];
-  }
-
-  isEmpty() {
-    return this.front === this.rear;
-  }
-
-  size() {
-    return this.rear - this.front;
-  }
-}
-
-function solution(N, K) {
-  const queue = new Queue();
-
-  for (let i = 1; i <= N; i++) {
-    queue.push(i);
-  }
-
-  while (queue.size() > 1) {
-    for (let i = 1; i <= K - 1; i++) {
-      let tmp = queue.pop();
-      queue.push(tmp);
+function createHashTable(arr, target) {
+  const table = new Array(target + 1).fill(0);
+  for (const num of arr) {
+    if (num <= target) {
+      table[num] = 1;
     }
-
-    queue.pop();
   }
 
-  return queue.pop();
+  return table;
 }
 
-console.log(solution(5, 2));
+function solution(arr, target) {
+  const table = createHashTable(arr, target);
+
+  for (const num of arr) {
+    const complement = target - num;
+
+    if (
+      complement >= 0 &&
+      complement <= target &&
+      complement !== num &&
+      table[complement] === 1
+    ) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+console.log(solution([2, 3, 5, 9], 10));
