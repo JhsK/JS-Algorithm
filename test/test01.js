@@ -1,31 +1,22 @@
-function createHashTable(arr, target) {
-  const table = new Array(target + 1).fill(0);
-  for (const num of arr) {
-    if (num <= target) {
-      table[num] = 1;
+function solution(participant, completion) {
+  const hashTable = new Map();
+  participant.forEach((person) => {
+    if (hashTable.has(person)) {
+      hashTable.set(person, hashTable.get(person) + 1);
+    } else {
+      hashTable.set(person, 1);
+    }
+  });
+
+  for (let x of completion) {
+    if (hashTable.has(x)) {
+      hashTable.set(x, hashTable.get(x) - 1);
     }
   }
 
-  return table;
-}
-
-function solution(arr, target) {
-  const table = createHashTable(arr, target);
-
-  for (const num of arr) {
-    const complement = target - num;
-
-    if (
-      complement >= 0 &&
-      complement <= target &&
-      complement !== num &&
-      table[complement] === 1
-    ) {
-      return true;
+  for (let [a, b] of hashTable.entries()) {
+    if (b >= 1) {
+      return a;
     }
   }
-
-  return false;
 }
-
-console.log(solution([2, 3, 5, 9], 10));
