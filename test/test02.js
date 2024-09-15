@@ -1,23 +1,44 @@
-function solution(S) {
-  let result = S.slice();
-  let stack = [];
-  let repeatNum = 1;
-
-  for (let i = 0; i < S.length; i++) {
-    if (stack.length === 0) stack.push(S[i]);
-    else {
-      if (stack[0] === S[i]) repeatNum++;
-      else {
-        stack.pop();
-        repeatNum = 1;
-      }
-      if (repeatNum === 3) {
-        result = result.replace(result[result.indexOf(S[i])], "");
-      }
-    }
+function preorder(nodes, idx) {
+  if (idx < nodes.length) {
+    let ret = `${nodes[idx]}`;
+    ret += preorder(nodes, idx * 2 + 1);
+    ret += preorder(nodes, idx * 2 + 2);
+    return ret;
   }
 
-  return result;
+  return "";
 }
 
-console.log(solution("eedaaad"));
+function inorder(nodes, idx) {
+  if (idx < nodes.length) {
+    let ret = inorder(nodes, idx * 2 + 1);
+    ret += `${nodes[idx]}`;
+    ret += inorder(nodes, idx * 2 + 2);
+    return ret;
+  }
+
+  return "";
+}
+
+function postorder(nodes, idx) {
+  if (idx < nodes.length) {
+    let ret = inorder(nodes, idx * 2 + 1);
+    ret += inorder(nodes, idx * 2 + 2);
+    ret += `${nodes[idx]}`;
+    return ret;
+  }
+
+  return "";
+}
+
+function solution() {
+  const nodes = [1, 2, 3, 4, 5, 6, 7];
+
+  return [
+    preorder(nodes, 0).slice(0, -1),
+    inorder(nodes, 0).slice(0, -1),
+    postorder(nodes, o).slice(0, -1),
+  ];
+}
+
+console.log(solution());
