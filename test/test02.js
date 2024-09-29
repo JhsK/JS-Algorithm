@@ -1,44 +1,73 @@
-function preorder(nodes, idx) {
-  if (idx < nodes.length) {
-    let ret = `${nodes[idx]}`;
-    ret += preorder(nodes, idx * 2 + 1);
-    ret += preorder(nodes, idx * 2 + 2);
-    return ret;
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+class BinaryTree {
+  constructor() {
+    this.root = root;
   }
 
-  return "";
-}
+  insert(value) {
+    const newNode = new Node(value);
 
-function inorder(nodes, idx) {
-  if (idx < nodes.length) {
-    let ret = inorder(nodes, idx * 2 + 1);
-    ret += `${nodes[idx]}`;
-    ret += inorder(nodes, idx * 2 + 2);
-    return ret;
+    if (this.root === null) {
+      this.root = newNode;
+    } else {
+      this._insertNode(this.root, newNode);
+    }
   }
 
-  return "";
-}
-
-function postorder(nodes, idx) {
-  if (idx < nodes.length) {
-    let ret = inorder(nodes, idx * 2 + 1);
-    ret += inorder(nodes, idx * 2 + 2);
-    ret += `${nodes[idx]}`;
-    return ret;
+  _insertNode(root, newNode) {
+    if (newNode.value < root.value) {
+      if (root.left === null) {
+        root.left = newNode;
+      } else {
+        this._insertNode(root.left, newNode);
+      }
+    } else {
+      if (root.right === null) {
+        root.right = newNode;
+        this._insertNode(root.right, newNode);
+      }
+    }
   }
-
-  return "";
 }
 
-function solution() {
-  const nodes = [1, 2, 3, 4, 5, 6, 7];
+function bfs_queue(root) {
+  const queue = [];
 
-  return [
-    preorder(nodes, 0).slice(0, -1),
-    inorder(nodes, 0).slice(0, -1),
-    postorder(nodes, o).slice(0, -1),
-  ];
+  if (root === null) return;
+
+  queue.push(root);
+
+  while (queue.length) {
+    const currentNode = queue.shift();
+    console.log(currentNode);
+    if (currentNode.left !== null) {
+      queue.push(currentNode.left);
+    }
+
+    if (currentNode.right !== null) {
+      queue.push(currentNode.right);
+    }
+  }
 }
 
-console.log(solution());
+function bfs_self(root) {
+  if (root === null) return;
+
+  while (true) {
+    console.log(root);
+    if (root.left !== null) {
+      bfs_self(root);
+    }
+
+    if (root.right !== null) {
+      bfs_self(root);
+    }
+  }
+}
