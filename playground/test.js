@@ -1,41 +1,28 @@
-let fs = require("fs");
-let input = "2 162";
+function find(parents, x) {
+  if (parents[x] === x) {
+    return x;
+  }
 
-class Queue {
-  constructor() {
-    this._arr = [];
-    this.first = 0;
-  }
-  enqueue(item) {
-    this._arr.push(item);
-  }
-  dequeue() {
-    if (this.first === 0) return this._arr.shift();
-    return this._arr[this.first++];
-  }
-  getLength() {
-    return this._arr.length - this.first;
-  }
+  parents[x] = find(parents, parents[x]);
+  return parents[x];
 }
 
-let max = 1e9;
-let found = false;
-let [n, m] = input[0].split(" ").map(Number);
-const queue = new Queue();
-queue.enqueue([1, n]); // depth, num
+function union(parents, x, y) {
+  const rootArr1 = find(parents, x);
+  const rootArr2 = find(parents, y);
 
-while (queue.getLength() !== 0) {
-  let [count, cur] = queue.dequeue();
-  if (cur === n) {
-    console.log(count);
-    found = true;
-    break;
-  }
-  for (let x of [cur * 2, Number(cur + "1")]) {
-    if (x <= max) {
-      queue.enqueue([count + 1, x]);
-    } else break;
-  }
+  parents[rootArr2] = rootArr1;
 }
 
-if (!found) console.log(-1);
+function solution(options) {
+  const k = options.length;
+  const parents = Array.from({ length: k }, (_, i) => i);
+}
+
+console.log(
+  solution([
+    ["u", 0, 1],
+    ["u", 1, 2],
+    ["f", 2],
+  ])
+);
